@@ -1,0 +1,34 @@
+function runAll() {
+    checkformat();
+    var doc = "NameIntendedForExcelFile" + getdate();
+    $("#GridName").innerhtml("");      //property used to set or get html contents
+    var data = $("#GridName").getdata({});
+    $("#id").kendogrid({                   // changing normal table to Kendo Grid with filtering options
+        datasource: data[0],
+        columns: data[1],
+        pageable: {
+            pagesize: 10
+        },
+        filterable: {
+            extra: false,
+            operators: {
+                string: {
+                    startswith: "starts with",
+                    eq: "is equal to",
+                    neq: "is not equal to"
+                }
+            }
+        },
+        toolbar: ["excel"],
+        excel: {
+            filename: doc,
+            allpages:true
+        },
+        filter: autosave,
+        resizable: true,
+        sortable: true
+
+    });
+    $("a").on("click", autosave);
+    $("#id").aligngrid();
+   }
